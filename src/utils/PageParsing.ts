@@ -27,6 +27,7 @@ import {parsePackagist} from './PageParsing/Packagist';
 import {parseMVNRepository} from './PageParsing/MVNRepository';
 import {parseMavenApache} from './PageParsing/MavenApache';
 import {parseSearchMavenOrg} from './PageParsing/SearchMavenOrg';
+import {parseRepo1MavenOrg} from './PageParsing/Repo1MavenOrg';
 
 const getArtifactDetailsFromDOM = (repoFormat: RepoType, url: string): PackageURL | undefined => {
   // console.trace("getArtifactDetailsFromDOM: repoFormat, url", repoFormat, url);
@@ -77,6 +78,10 @@ const getArtifactDetailsFromDOM = (repoFormat: RepoType, url: string): PackageUR
     }
     case REPOS.searchMavenOrg: {
       return parseSearchMavenOrg(url);
+      break;
+    }
+    case REPOS.repo1MavenOrg: {
+      return parseRepo1MavenOrg(url);
       break;
     }
 

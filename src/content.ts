@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener((event: any, sender, respCallback) => {
   console.info('Recieved a message on content.js', event);
 
   if (event.type === 'getArtifactDetailsFromWebpage') {
-    console.trace('Received getArtifactDetailsFromWebpage message on content.js');
+    console.trace('Received getArtifactDetailsFromWebpage message on content.js', event);
     const data: ArtifactMessage = event;
     console.info('Message says to get some artifact details from the webpage, will do boss!', data);
 
@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener((event: any, sender, respCallback) => {
     }
   }
   if (event.type === 'artifactDetailsFromServiceWorker') {
-    console.trace('Recieved artifactDetailsFromServiceWorker message on content.js');
+    console.trace('Received artifactDetailsFromServiceWorker message on content.js', event);
     if (event.componentDetails) {
       const data: ComponentDetails = event.componentDetails;
 
@@ -81,11 +81,11 @@ const checkPage = () => {
 
   if (repoType) {
     chrome.runtime.sendMessage({type: 'togglePage', show: true});
-    console.debug('Found a valid repoType: ' + repoType);
+    console.debug('Found a valid repoType: ', repoType);
     const purl = getArtifactDetailsFromDOM(repoType, window.location.href);
 
     if (purl) {
-      console.debug('Obtained a valid purl: ' + purl);
+      console.debug('Obtained a valid purl: ', purl);
       console.trace('Attempting to send message to service worker');
       chrome.runtime.sendMessage({type: 'getArtifactDetailsFromPurl', purl: purl.toString()});
       console.trace('Message sent to service worker');
